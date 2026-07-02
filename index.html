@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RCB Bold — Royal Challengers Bengaluru</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --black:#141414;
+    --black2:#0c0c0c;
+    --red:#EC1C24;
+    --red-deep:#7a0000;
+    --gold:#C9A24B;
+    --white:#f5f3ee;
+    --grey:#9a9590;
+    --card:#1d1c1c;
+    --card-line:rgba(245,243,238,0.08);
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--red);color:#fff;}
+  ::-webkit-scrollbar{width:7px;}
+  ::-webkit-scrollbar-track{background:var(--black2);}
+  ::-webkit-scrollbar-thumb{background:var(--red);}
+
+  .display{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:0.01em;}
+  .mono{font-family:'Roboto Mono',monospace;}
+
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+
+  /* ===== FOCUS / A11Y ===== */
+  a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
+    outline:2px solid var(--gold);outline-offset:3px;
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    position:sticky;top:0;z-index:999;
+    background:rgba(12,12,12,0.88);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-line);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 6vw;height:74px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Anton',sans-serif;font-size:1.3rem;letter-spacing:0.03em;
+  }
+  .brand .dot{width:10px;height:10px;background:var(--red);border-radius:50%;display:inline-block;}
+  nav{display:flex;gap:0.3rem;}
+  nav a{
+    text-decoration:none;color:var(--grey);
+    font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+    padding:0.5rem 0.9rem;border-radius:2px;
+    transition:color 0.2s;position:relative;
+  }
+  nav a::after{
+    content:'';position:absolute;left:0.9rem;right:0.9rem;bottom:0.3rem;height:2px;
+    background:var(--red);transform:scaleX(0);transition:transform 0.25s;transform-origin:left;
+  }
+  nav a:hover{color:var(--white);}
+  nav a:hover::after{transform:scaleX(1);}
+  .menu-btn{display:none;background:none;border:none;color:var(--white);font-size:1.5rem;cursor:pointer;}
+
+  /* ===== HERO ===== */
+  #home{
+    position:relative;
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:0 6vw;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(236,28,36,0.18), transparent 60%),
+      linear-gradient(180deg,var(--black) 0%,var(--black2) 100%);
+    overflow:hidden;
+  }
+  .slash{
+    position:absolute;top:-10%;right:-5%;width:60%;height:140%;
+    background:linear-gradient(100deg,transparent 40%,var(--red-deep) 41%,var(--red) 47%,var(--red) 49%,transparent 50%);
+    opacity:0.5;transform:rotate(8deg);
+    pointer-events:none;
+  }
+  .hero-eyebrow{
+    font-family:'Roboto Mono',monospace;font-size:0.78rem;letter-spacing:0.25em;
+    color:var(--red);text-transform:uppercase;margin-bottom:1.2rem;
+    display:flex;align-items:center;gap:0.6rem;
+  }
+  .hero-eyebrow::before{content:'';width:28px;height:2px;background:var(--red);display:inline-block;}
+  #home h1{
+    font-size:clamp(3.2rem,11vw,9rem);line-height:0.92;
+    color:var(--white);position:relative;z-index:2;
+  }
+  #home h1 span{color:var(--red);}
+  .hero-tagline{
+    font-size:clamp(1rem,2.2vw,1.3rem);color:var(--grey);max-width:540px;
+    margin:1.6rem 0 2.4rem;line-height:1.6;position:relative;z-index:2;
+  }
+  .hero-tagline strong{color:var(--white);font-weight:700;}
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;position:relative;z-index:2;}
+  .btn{
+    display:inline-flex;align-items:center;gap:0.5rem;
+    font-weight:700;font-size:0.85rem;letter-spacing:0.05em;text-transform:uppercase;
+    padding:0.95rem 2rem;border-radius:2px;text-decoration:none;cursor:pointer;border:none;
+    transition:transform 0.2s,box-shadow 0.2s,background 0.2s;
+  }
+  .btn-primary{background:var(--red);color:#fff;box-shadow:0 0 0 0 rgba(236,28,36,0.5);}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(236,28,36,0.4);}
+  .btn-ghost{background:transparent;color:var(--white);border:1px solid var(--card-line);}
+  .btn-ghost:hover{border-color:var(--white);transform:translateY(-3px);}
+
+  .hero-scroll{
+    position:absolute;bottom:2.2rem;left:6vw;font-family:'Roboto Mono',monospace;
+    font-size:0.7rem;color:var(--grey);letter-spacing:0.15em;text-transform:uppercase;
+    display:flex;align-items:center;gap:0.6rem;
+  }
+  .hero-scroll .line{width:1px;height:34px;background:var(--grey);animation:scrolldown 2s infinite;}
+  @keyframes scrolldown{0%{opacity:0.2;}50%{opacity:1;}100%{opacity:0.2;}}
+
+  /* ===== SECTION COMMON ===== */
+  section{padding:6rem 6vw;}
+  .label{
+    font-family:'Roboto Mono',monospace;font-size:0.72rem;letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--red);margin-bottom:0.7rem;display:block;
+  }
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:3rem;}
+  .sec-title{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;}
+  .sec-desc{color:var(--grey);max-width:380px;font-size:0.92rem;line-height:1.6;}
+
+  /* ===== ABOUT ===== */
+  #about{background:var(--black2);border-top:1px solid var(--card-line);border-bottom:1px solid var(--card-line);}
+  .about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:start;}
+  .about-grid p{color:var(--grey);line-height:1.85;font-size:1.02rem;margin-bottom:1.1rem;}
+  .about-grid p strong{color:var(--white);}
+  .fact-list{display:flex;flex-direction:column;gap:1.4rem;border-left:2px solid var(--red);padding-left:1.6rem;}
+  .fact{display:flex;justify-content:space-between;font-family:'Roboto Mono',monospace;font-size:0.85rem;color:var(--grey);border-bottom:1px dashed var(--card-line);padding-bottom:0.8rem;}
+  .fact b{color:var(--white);font-weight:600;}
+  @media(max-width:850px){.about-grid{grid-template-columns:1fr;}}
+
+  /* ===== HOPE STRIP (signature element) ===== */
+  #hope{background:var(--black);}
+  .hope-intro{max-width:640px;margin:0 auto 3rem;text-align:center;}
+  .hope-intro p{color:var(--grey);line-height:1.7;font-size:0.98rem;}
+  .hope-track{
+    display:flex;overflow-x:auto;gap:1px;scrollbar-width:none;
+    border:1px solid var(--card-line);
+  }
+  .hope-track::-webkit-scrollbar{display:none;}
+  .hope-year{
+    flex:0 0 auto;min-width:140px;padding:2rem 1.4rem;
+    background:var(--card);border-right:1px solid var(--card-line);
+    text-align:center;
+  }
+  .hope-year:last-child{border-right:none;}
+  .hope-year .yr{font-family:'Anton',sans-serif;font-size:1.7rem;color:var(--white);}
+  .hope-year .ev{font-size:0.74rem;color:var(--grey);margin-top:0.5rem;line-height:1.5;}
+  .hope-year.final{background:linear-gradient(160deg,var(--red-deep),#3a0000);}
+  .hope-year.final .yr{color:var(--gold);}
+  .hope-year.final .ev{color:#f0d9b0;}
+
+  /* ===== SQUAD ===== */
+  #squad{background:var(--black2);border-top:1px solid var(--card-line);}
+  .filter-row{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+  .filter-btn{
+    font-family:'Roboto Mono',monospace;font-size:0.74rem;letter-spacing:0.05em;text-transform:uppercase;
+    background:transparent;border:1px solid var(--card-line);color:var(--grey);
+    padding:0.55rem 1.1rem;border-radius:30px;cursor:pointer;transition:all 0.2s;
+  }
+  .filter-btn:hover{border-color:var(--white);color:var(--white);}
+  .filter-btn.active{background:var(--red);border-color:var(--red);color:#fff;}
+  .squad-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.4rem;}
+  .pcard{
+    background:var(--card);border:1px solid var(--card-line);
+    overflow:hidden;position:relative;transition:transform 0.3s,border-color 0.3s;
+  }
+  .pcard:hover{transform:translateY(-6px);border-color:var(--red);}
+  .pcard-img{
+    aspect-ratio:1/1;background:linear-gradient(160deg,#262222,#161414);
+    display:flex;align-items:flex-end;justify-content:center;overflow:hidden;position:relative;
+  }
+  .pcard-img img{width:100%;height:100%;object-fit:cover;object-position:top;}
+  .pcard-num{
+    position:absolute;top:0.7rem;left:0.7rem;font-family:'Roboto Mono',monospace;
+    font-size:0.7rem;color:var(--grey);background:rgba(0,0,0,0.5);padding:0.2rem 0.5rem;
+  }
+  .pcard-tag{
+    position:absolute;top:0.7rem;right:0.7rem;font-family:'Roboto Mono',monospace;
+    font-size:0.62rem;letter-spacing:0.06em;text-transform:uppercase;font-weight:700;
+    background:var(--red);color:#fff;padding:0.25rem 0.6rem;
+  }
+  .pcard-body{padding:1.1rem 1.2rem 1.3rem;}
+  .pcard-body h3{font-size:1.02rem;font-weight:700;}
+  .pcard-role{font-family:'Roboto Mono',monospace;font-size:0.72rem;color:var(--red);letter-spacing:0.06em;text-transform:uppercase;margin-top:0.35rem;}
+
+  /* ===== STATS ===== */
+  #stats{background:var(--black);border-top:1px solid var(--card-line);}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--card-line);}
+  .stat{padding:2.4rem 1.4rem;text-align:center;border-right:1px solid var(--card-line);}
+  .stat:last-child{border-right:none;}
+  .stat .n{font-family:'Anton',sans-serif;font-size:3rem;color:var(--white);}
+  .stat .l{font-family:'Roboto Mono',monospace;font-size:0.72rem;color:var(--grey);letter-spacing:0.08em;text-transform:uppercase;margin-top:0.4rem;}
+  @media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr);}.stat{border-bottom:1px solid var(--card-line);}}
+
+  /* ===== SCHEDULE ===== */
+  #schedule{background:var(--black2);border-top:1px solid var(--card-line);}
+  .fixture{
+    display:grid;grid-template-columns:90px 1fr auto auto;align-items:center;gap:1.2rem;
+    padding:1.3rem 0.5rem;border-bottom:1px solid var(--card-line);
+  }
+  .fixture:first-child{border-top:1px solid var(--card-line);}
+  .fx-date{font-family:'Roboto Mono',monospace;font-size:0.78rem;color:var(--grey);}
+  .fx-date b{color:var(--white);display:block;font-size:1.3rem;font-family:'Anton',sans-serif;}
+  .fx-match{font-weight:700;font-size:1rem;}
+  .fx-venue{font-family:'Roboto Mono',monospace;font-size:0.72rem;color:var(--grey);text-transform:uppercase;}
+  .fx-status{
+    font-family:'Roboto Mono',monospace;font-size:0.72rem;font-weight:700;text-transform:uppercase;
+    padding:0.35rem 0.8rem;border-radius:20px;text-align:center;white-space:nowrap;
+  }
+  .fx-win{background:rgba(40,200,120,0.15);color:#3ee08a;}
+  .fx-loss{background:rgba(236,28,36,0.15);color:#ff6b70;}
+  .fx-upcoming{background:rgba(201,162,75,0.15);color:var(--gold);}
+  @media(max-width:700px){.fixture{grid-template-columns:1fr 1fr;grid-template-areas:"date status" "match match" "venue venue";}
+    .fx-date{grid-area:date;}.fx-status{grid-area:status;justify-self:end;}.fx-match{grid-area:match;}.fx-venue{grid-area:venue;}}
+
+  /* ===== POLL ===== */
+  #poll{background:var(--black);border-top:1px solid var(--card-line);}
+  .poll-box{max-width:600px;margin:0 auto;background:var(--card);border:1px solid var(--card-line);padding:2.2rem;}
+  .poll-q{font-size:1.15rem;font-weight:700;margin-bottom:1.5rem;}
+  .poll-opt{
+    display:flex;align-items:center;justify-content:space-between;
+    border:1px solid var(--card-line);padding:0.9rem 1.1rem;margin-bottom:0.7rem;
+    cursor:pointer;transition:border-color 0.2s,background 0.2s;position:relative;overflow:hidden;
+  }
+  .poll-opt:hover{border-color:var(--red);}
+  .poll-opt .fill{
+    position:absolute;left:0;top:0;bottom:0;background:rgba(236,28,36,0.18);width:0%;
+    transition:width 0.6s ease;z-index:0;
+  }
+  .poll-opt span{position:relative;z-index:1;}
+  .poll-opt .pct{font-family:'Roboto Mono',monospace;color:var(--grey);}
+  .poll-note{font-family:'Roboto Mono',monospace;font-size:0.72rem;color:var(--grey);margin-top:1rem;text-align:center;}
+
+  /* ===== NEWS ===== */
+  #news{background:var(--black2);border-top:1px solid var(--card-line);}
+  .news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem;}
+  .news-card{background:var(--card);border:1px solid var(--card-line);padding:1.8rem;transition:border-color 0.3s,transform 0.3s;}
+  .news-card:hover{border-color:var(--red);transform:translateY(-4px);}
+  .news-tag{font-family:'Roboto Mono',monospace;font-size:0.68rem;color:var(--red);letter-spacing:0.1em;text-transform:uppercase;}
+  .news-card h3{margin:0.8rem 0 0.7rem;font-size:1.02rem;line-height:1.4;}
+  .news-card p{color:var(--grey);font-size:0.86rem;line-height:1.7;}
+  .news-date{font-family:'Roboto Mono',monospace;font-size:0.7rem;color:var(--grey);margin-top:1rem;display:block;}
+
+  /* ===== SOCIAL STRIP ===== */
+  #social{background:var(--black);border-top:1px solid var(--card-line);text-align:center;}
+  .social-row{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:1.5rem;}
+  .social-pill{
+    display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--card-line);
+    padding:0.7rem 1.3rem;border-radius:30px;text-decoration:none;font-size:0.85rem;font-weight:600;
+    transition:border-color 0.2s,transform 0.2s;
+  }
+  .social-pill:hover{border-color:var(--red);transform:translateY(-3px);}
+
+  /* ===== FAN ZONE / FORM ===== */
+  #contact{background:var(--black2);border-top:1px solid var(--card-line);}
+  .contact-wrap{max-width:600px;margin:0 auto;text-align:center;}
+  .contact-wrap > p{color:var(--grey);margin-bottom:2.4rem;}
+  .fan-form{display:flex;flex-direction:column;gap:1rem;text-align:left;}
+  .fan-form input,.fan-form textarea,.fan-form select{
+    background:var(--card);border:1px solid var(--card-line);color:var(--white);
+    padding:1rem 1.1rem;font-family:'Inter',sans-serif;font-size:0.92rem;outline:none;
+    transition:border-color 0.2s;resize:vertical;
+  }
+  .fan-form input:focus,.fan-form textarea:focus,.fan-form select:focus{border-color:var(--red);}
+  .fan-form textarea{min-height:130px;}
+  .fan-form input::placeholder,.fan-form textarea::placeholder{color:var(--grey);}
+  #fan-msg{margin-top:1.1rem;font-family:'Roboto Mono',monospace;font-size:0.85rem;color:var(--gold);min-height:1.4rem;text-align:center;}
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--black2);border-top:1px solid var(--card-line);
+    padding:2.6rem 6vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+  }
+  .footer-brand{font-family:'Anton',sans-serif;font-size:1.1rem;}
+  footer p{font-size:0.76rem;color:var(--grey);}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+  /* ===== MOBILE NAV ===== */
+  @media(max-width:880px){
+    nav{
+      position:fixed;top:74px;left:0;right:0;background:var(--black2);
+      flex-direction:column;align-items:stretch;border-bottom:1px solid var(--card-line);
+      max-height:0;overflow:hidden;transition:max-height 0.3s;
+    }
+    nav.open{max-height:400px;}
+    nav a{padding:1rem 6vw;border-bottom:1px solid var(--card-line);}
+    .menu-btn{display:block;}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .about-grid p{font-size:0.95rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><span class="dot"></span>RCB&nbsp;BOLD</div>
+  <nav id="nav">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#squad">Squad</a>
+    <a href="#stats">Stats</a>
+    <a href="#schedule">Fixtures</a>
+    <a href="#poll">Poll</a>
+    <a href="#news">News</a>
+    <a href="#contact">Fan Zone</a>
+  </nav>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+</header>
+
+<!-- HERO -->
+<section id="home">
+  <div class="slash" aria-hidden="true"></div>
+  <span class="hero-eyebrow">Est. 2008 · Bengaluru</span>
+  <h1>EE SALA<br/><span>CUP NAMDE</span></h1>
+  <p class="hero-tagline">Royal Challengers Bengaluru don't need a trophy cabinet to tell you who we are. <strong>3.5 crore hearts, one shade of red</strong> — we've shown up every single year, and we'll show up again.</p>
+  <div class="hero-ctas">
+    <a href="#squad" class="btn btn-primary">Meet the Squad</a>
+    <a href="#poll" class="btn btn-ghost">Cast Your Vote</a>
+  </div>
+  <div class="hero-scroll"><span class="line"></span>Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <span class="label">The Franchise</span>
+  <div class="sec-head">
+    <h2 class="sec-title display">About RCB</h2>
+  </div>
+  <div class="about-grid">
+    <div>
+      <p>Royal Challengers Bengaluru has been one of the IPL's most-watched and most-discussed franchises since the league's first season in 2008. Built around explosive batting and a stadium that turns into a sea of red, <strong>RCB plays cricket the way Bengaluru drinks its filter coffee — strong, loud, and without apology.</strong></p>
+      <p>Home games are played at the M. Chinnaswamy Stadium, a ground famous for short boundaries, flat pitches, and a crowd that never sits down. The franchise has reached multiple finals across formats, anchored for over a decade by Virat Kohli's relentless consistency at the top of the order.</p>
+      <p>What RCB has built isn't a trophy room — it's a fandom that's outlasted heartbreak after heartbreak and only gotten louder. That's the whole pitch.</p>
+    </div>
+    <div class="fact-list mono">
+      <div class="fact"><span>Founded</span><b>2008</b></div>
+      <div class="fact"><span>Home Ground</span><b>M. Chinnaswamy Stadium</b></div>
+      <div class="fact"><span>Capacity</span><b>~33,800</b></div>
+      <div class="fact"><span>Owner</span><b>Diageo / United Spirits</b></div>
+      <div class="fact"><span>Colours</span><b>Red &amp; Black</b></div>
+      <div class="fact"><span>Anthem</span><b>"Ee Sala Cup Namde"</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOPE STRIP — signature element -->
+<section id="hope">
+  <span class="label">A History, Honestly Told</span>
+  <div class="sec-head">
+    <h2 class="sec-title display">Years of Hope</h2>
+  </div>
+  <div class="hope-intro">
+    <p>No other fanbase has turned near-misses into folklore quite like this one. Three finals. Zero trophies. Infinite belief. Scroll the timeline — every year is part of the story.</p>
+  </div>
+  <div class="hope-track" role="list">
+    <div class="hope-year" role="listitem"><div class="yr">2009</div><div class="ev">Semi-final finish, South Africa edition</div></div>
+    <div class="hope-year final" role="listitem"><div class="yr">2011</div><div class="ev">Runners-up · Final vs CSK</div></div>
+    <div class="hope-year" role="listitem"><div class="yr">2013</div><div class="ev">Eliminator heartbreak</div></div>
+    <div class="hope-year final" role="listitem"><div class="yr">2016</div><div class="ev">Runners-up · Final vs SRH</div></div>
+    <div class="hope-year" role="listitem"><div class="yr">2020</div><div class="ev">Eliminator exit, UAE bubble season</div></div>
+    <div class="hope-year" role="listitem"><div class="yr">2022</div><div class="ev">Qualifier 2, fell to RR</div></div>
+    <div class="hope-year final" role="listitem"><div class="yr">2024</div><div class="ev">Brilliant turnaround run to playoffs</div></div>
+    <div class="hope-year" role="listitem"><div class="yr">2026</div><div class="ev">This is our year. It's always our year.</div></div>
+  </div>
+</section>
+
+<!-- SQUAD -->
+<section id="squad">
+  <span class="label">The Lineup</span>
+  <div class="sec-head">
+    <h2 class="sec-title display">RCB Squad</h2>
+    <p class="sec-desc">Filter by role to scout the side that's taking the field this season.</p>
+  </div>
+
+  <div class="filter-row" id="filterRow">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="Batter">Batters</button>
+    <button class="filter-btn" data-filter="All Rounder">All Rounders</button>
+    <button class="filter-btn" data-filter="Wicket Keeper">Keeper</button>
+    <button class="filter-btn" data-filter="Bowler">Bowlers</button>
+  </div>
+
+  <div class="squad-grid" id="squadGrid">
+    <div class="pcard" data-role="Batter">
+      <div class="pcard-img">
+        <span class="pcard-num mono">18</span><span class="pcard-tag">Icon</span>
+        <img src="https://documents.iplt20.com/ipl/IPLHeadshot2026/2.png" alt="Virat Kohli" onerror="this.src='https://placehold.co/300x300/1d1c1c/EC1C24?text=VK'"/>
+      </div>
+      <div class="pcard-body"><h3>Virat Kohli</h3><p class="pcard-role">Batter</p></div>
+    </div>
+    <div class="pcard" data-role="Batter">
+      <div class="pcard-img">
+        <span class="pcard-num mono">16</span><span class="pcard-tag">Captain</span>
+        <img src="https://documents.iplt20.com/ipl/IPLHeadshot2026/597.png" alt="Rajat Patidar" onerror="this.src='https://placehold.co/300x300/1d1c1c/EC1C24?text=RP'"/>
+      </div>
+      <div class="pcard-body"><h3>Rajat Patidar</h3><p class="pcard-role">Captain · Batter</p></div>
+    </div>
+    <div class="pcard" data-role="Batter">
+      <div class="pcard-img">
+        <span class="pcard-num mono">19</span>
+        <img src="https://documents.iplt20.com/ipl/IPLHeadshot2026/200.png" alt="Devdutt Padikkal" onerror="this.src='https://placehold.co/300x300/1d1c1c/EC1C24?text=DP'"/>
+      </div>
+      <div class="pcard-body"><h3>Devdutt Padikkal</h3><p class="pcard-role">Batter</p></div>
+    </div>
+    <div class="pcard" data-role="All Rounder">
+      <div class="pcard-img">
+        <span class="pcard-num mono">54</span><span class="pcard-tag">Finisher</span>
+        <img src="https://documents.iplt20.com/ipl/IPLHeadshot2026/636.png" alt="Tim David" onerror="this.src='https://placehold.co/300x300/1d1c1c/EC1C24?text=TD'"/>
+      </div>
+      <div class="pcard-body"><h3>Tim David</h3><p class="pcard-role">Finisher</p></div>
+    </div>
+    <div class="pcard" data-role="All Rounder">
+      <div class="pcard-img">
+        <span class="pcard-num mono">12</span>
+        <img src="https://documents.iplt20.com/ipl/IPLHeadshot2026/17.png" alt="Krunal Pandya" onerror="this.src='https://placehold.co/300x300/1d1c1c/EC1C24?text=KP'"/>
+      </div>
+      <div class="pcard-body"><h3>Krunal Pandya</h3><p class="pcard-role">All Rounder</p></div>
+    </div>
+    <div class="pcard" data-role="Wicket Keeper">
+      <div class="pcard-img">
+        <span class="pcard-num mono">28</span>
+        <img src="https://documents.iplt20.com/ipl/IPLHeadshot2026/1000.png" alt="Jitesh Sharma" onerror="this.src='https://placehold.co/300x300/1d1c1c/EC1C24?text=JS'"/>
+      </div>
+      <div class="pcard-body"><h3>Jitesh Sharma</h3><p class="pcard-role">Wicket Keeper</p></div>
+    </div>
+    <div class="pcard" data-role="All Rounder">
+      <div class="pcard-img">
+        <span class="pcard-num mono">07</span>
+        <img src="https://documents.iplt20.com/ipl/IPLHeadshot2026/371.png" alt="Romario Shepherd" onerror="this.src='https://placehold.co/300x300/1d1c1c/EC1C24?text=RS'"/>
+      </div>
+      <div class="pcard-body"><h3>Romario Shepherd</h3><p class="pcard-role">All Rounder</p></div>
+    </div>
+    <div class="pcard" data-role="Bowler">
+      <div class="pcard-img">
+        <span class="pcard-num mono">12</span>
+        <img src="https://documents.iplt20.com/ipl/IPLHeadshot2026/978.png" alt="Yash Dayal" onerror="this.src='https://placehold.co/300x300/1d1c1c/EC1C24?text=YD'"/>
+      </div>
+      <div class="pcard-body"><h3>Yash Dayal</h3><p class="pcard-role">Bowler</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <span class="label">By The Numbers</span>
+  <div class="sec-head"><h2 class="sec-title display">Team Stats</h2></div>
+  <div class="stats-grid mono">
+    <div class="stat"><div class="n">18</div><div class="l">Matches</div></div>
+    <div class="stat"><div class="n">11</div><div class="l">Wins</div></div>
+    <div class="stat"><div class="n">263</div><div class="l">Highest Score</div></div>
+    <div class="stat"><div class="n">3</div><div class="l">Finals Reached</div></div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <span class="label">Match Calendar</span>
+  <div class="sec-head"><h2 class="sec-title display">Fixtures</h2></div>
+
+  <div class="fixture">
+    <div class="fx-date"><b>22</b>MAR</div>
+    <div><div class="fx-match">RCB vs KKR</div><div class="fx-venue">Bengaluru</div></div>
+    <div></div>
+    <div class="fx-status fx-win">Won · 7 wkts</div>
+  </div>
+  <div class="fixture">
+    <div class="fx-date"><b>28</b>MAR</div>
+    <div><div class="fx-match">RCB vs CSK</div><div class="fx-venue">Chennai</div></div>
+    <div></div>
+    <div class="fx-status fx-loss">Lost · 4 runs</div>
+  </div>
+  <div class="fixture">
+    <div class="fx-date"><b>03</b>APR</div>
+    <div><div class="fx-match">RCB vs MI</div><div class="fx-venue">Bengaluru</div></div>
+    <div></div>
+    <div class="fx-status fx-upcoming">Upcoming</div>
+  </div>
+  <div class="fixture">
+    <div class="fx-date"><b>09</b>APR</div>
+    <div><div class="fx-match">RCB vs PBKS</div><div class="fx-venue">Mohali</div></div>
+    <div></div>
+    <div class="fx-status fx-upcoming">Upcoming</div>
+  </div>
+  <div class="fixture">
+    <div class="fx-date"><b>15</b>APR</div>
+    <div><div class="fx-match">RCB vs GT</div><div class="fx-venue">Bengaluru</div></div>
+    <div></div>
+    <div class="fx-status fx-upcoming">Upcoming</div>
+  </div>
+</section>
+
+<!-- POLL -->
+<section id="poll">
+  <span class="label">Fan Vote</span>
+  <div class="sec-head"><h2 class="sec-title display">Have Your Say</h2></div>
+  <div class="poll-box">
+    <p class="poll-q">Who wins Player of the Season for RCB?</p>
+    <div id="pollOptions">
+      <div class="poll-opt" data-option="Virat Kohli"><div class="fill"></div><span>Virat Kohli</span><span class="pct mono"></span></div>
+      <div class="poll-opt" data-option="Rajat Patidar"><div class="fill"></div><span>Rajat Patidar</span><span class="pct mono"></span></div>
+      <div class="poll-opt" data-option="Tim David"><div class="fill"></div><span>Tim David</span><span class="pct mono"></span></div>
+      <div class="poll-opt" data-option="Yash Dayal"><div class="fill"></div><span>Yash Dayal</span><span class="pct mono"></span></div>
+    </div>
+    <p class="poll-note" id="pollNote">Tap an option to vote — results update live in your browser.</p>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news">
+  <span class="label">Latest Updates</span>
+  <div class="sec-head"><h2 class="sec-title display">RCB News</h2></div>
+  <div class="news-grid">
+    <div class="news-card">
+      <span class="news-tag mono">Performance</span>
+      <h3>Kohli Brings Up Another Half-Century at Chinnaswamy</h3>
+      <p>The talismanic opener continues to anchor the innings, walking out to a roar that hasn't dimmed in over a decade.</p>
+      <span class="news-date mono">This Week</span>
+    </div>
+    <div class="news-card">
+      <span class="news-tag mono">Captaincy</span>
+      <h3>Patidar Settling Into the Armband With Composure</h3>
+      <p>Calm under pressure and sharp with field changes — the new captain is quietly winning the dressing room over.</p>
+      <span class="news-date mono">This Week</span>
+    </div>
+    <div class="news-card">
+      <span class="news-tag mono">Fan Culture</span>
+      <h3>"Ee Sala Cup Namde" Trends Again Ahead of Season</h3>
+      <p>The unofficial anthem of unwavering belief is back across timelines, exactly on schedule, exactly as loud as ever.</p>
+      <span class="news-date mono">Pre-Season</span>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section id="social">
+  <span class="label">Stay Connected</span>
+  <h2 class="sec-title display">Follow The Roar</h2>
+  <p style="color:var(--grey);max-width:480px;margin:0 auto;">Catch live match updates, behind-the-scenes content, and matchday banter wherever you scroll.</p>
+  <div class="social-row">
+    <a class="social-pill" href="https://twitter.com/RCBTweets" target="_blank" rel="noopener">𝕏 Twitter / X</a>
+    <a class="social-pill" href="https://instagram.com/royalchallengersbengaluru" target="_blank" rel="noopener">📷 Instagram</a>
+    <a class="social-pill" href="https://youtube.com/RoyalChallengersBengaluru" target="_blank" rel="noopener">▶ YouTube</a>
+    <a class="social-pill" href="https://facebook.com/royalchallengersbangalore" target="_blank" rel="noopener">f Facebook</a>
+  </div>
+</section>
+
+<!-- FAN ZONE -->
+<section id="contact">
+  <div class="contact-wrap">
+    <span class="label">Fan Zone</span>
+    <h2 class="sec-title display">Write To RCB</h2>
+    <p>Send your match-day energy, questions, or pure unfiltered loyalty — straight to the Fan Zone inbox.</p>
+    <form class="fan-form" id="fanForm">
+      <input type="text" id="fanName" placeholder="Your Name" required/>
+      <input type="email" id="fanEmail" placeholder="Email Address" required/>
+      <select id="fanCity">
+        <option value="">City (optional)</option>
+        <option>Bengaluru</option>
+        <option>Mumbai</option>
+        <option>Delhi</option>
+        <option>Chennai</option>
+        <option>Kolkata</option>
+        <option>Other</option>
+      </select>
+      <textarea id="fanMessage" rows="5" placeholder="Your message to the team..." required></textarea>
+      <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message</button>
+    </form>
+    <p id="fan-msg" class="mono"></p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand"><span style="color:var(--red);">●</span> RCB BOLD</div>
+  <p>© 2026 RCB Bold · Unofficial Fan Page · Ee Sala Cup Namde</p>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const nav = document.getElementById('nav');
+  menuBtn.addEventListener('click', () => nav.classList.toggle('open'));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+  // Squad filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('#squadGrid .pcard');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(card => {
+        card.style.display = (f === 'all' || card.dataset.role === f) ? '' : 'none';
+      });
+    });
+  });
+
+  // Poll — client-side only, persists per browser session via in-memory state
+  const pollVotes = { "Virat Kohli": 42, "Rajat Patidar": 18, "Tim David": 21, "Yash Dayal": 9 };
+  let hasVoted = false;
+  const pollOptions = document.querySelectorAll('.poll-opt');
+  const pollNote = document.getElementById('pollNote');
+
+  function renderPoll(){
+    const total = Object.values(pollVotes).reduce((a,b)=>a+b,0);
+    pollOptions.forEach(opt => {
+      const key = opt.dataset.option;
+      const pct = Math.round((pollVotes[key] / total) * 100);
+      opt.querySelector('.fill').style.width = pct + '%';
+      opt.querySelector('.pct').textContent = pct + '%';
+    });
+  }
+  renderPoll();
+
+  pollOptions.forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (hasVoted) return;
+      pollVotes[opt.dataset.option]++;
+      hasVoted = true;
+      renderPoll();
+      pollNote.textContent = "Thanks for voting! Results reflect fans in this session.";
+    });
+  });
+
+  // Fan Zone form — front-end only, no backend wired up yet
+  const fanForm = document.getElementById('fanForm');
+  const fanMsg = document.getElementById('fan-msg');
+  fanForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('fanName').value.trim();
+    const email = document.getElementById('fanEmail').value.trim();
+    const message = document.getElementById('fanMessage').value.trim();
+    if(!name || !email || !message){
+      fanMsg.style.color = '#ff6b70';
+      fanMsg.textContent = 'Please fill in your name, email and message.';
+      return;
+    }
+    fanMsg.style.color = 'var(--gold)';
+    fanMsg.textContent = `Thanks, ${name}. Ee Sala Cup Namde — message received.`;
+    fanForm.reset();
+    setTimeout(() => fanMsg.textContent = '', 6000);
+  });
+</script>
+
+</body>
+</html>
